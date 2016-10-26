@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="cbsChat">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/main.min.css">
+   </head>
+<body>
+    <section class="chat-page" >
+    <div class="chat-window" ng-controller="chatCtrl as chat">
+        <div class="chat-header">
+            <div class="chat-header__author"> <p class="welcome" ng-if="!chat.author">If you want to write a message in a chat that you need to create an account</p>
+                <p ng-if="chat.author" >Thank you for your registration   {{chat.author.displayName}}</p>
+            </div>
+            <div class="chat-header__btns">
+                <button class="btn btn-green" ng-if="!chat.author" ng-click="chat.login()">Login</button>
+                <button class="btn btn-red" ng-if="chat.author" ng-click="chat.logout()">Logout</button>
+            </div>
+        </div>
+        <div class="chat-body">
+            <ul class="messages">
+                <li class="message" ng-class="{ 'message--mine':msg.author !== chat.author.uid }" ng-repeat="msg in chat.showMessages">
+                    <img class="message__photo" ng-src="{{msg.authorPhoto}}" alt="">
+                    <span class="message__author">{{msg.authorName}}</span>
+                    <div class="message__text">
+                        {{msg.text}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="chat-footer">
+            <textarea enter-sender="chat.sendMessage()" rows="5" ng-model="chat.newMessage"></textarea>
+            <button class="btn  btn-green" ng-click="chat.sendMessage()">Send</button>
+        </div>
+    </div>
+    </section>
+
+<script src="js/vendor.min.js"></script>
+
+<script src="js/main.min.js"></script>
+
+</body>
+</html>
